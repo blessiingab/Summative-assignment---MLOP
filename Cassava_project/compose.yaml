@@ -1,0 +1,13 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: cassava-classifier:latest
+    container_name: cassava-classifier
+    restart: unless-stopped
+    ports:
+      - "80:8000"
+    volumes:
+      - ./data:/app/data
+      - ./models:/app/models

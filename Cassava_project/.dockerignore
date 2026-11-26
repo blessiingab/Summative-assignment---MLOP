@@ -4,3 +4,6 @@ __pycache__/
 *.py[cod]
 data/
 notebook/
+.git/
+.ruff_cache/
+.pytest_cache/
