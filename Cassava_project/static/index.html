@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f5f7f2">
+    <title>CassavaCare | Leaf disease classifier</title>
+    <link rel="stylesheet" href="/static/styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="CassavaCare home">
+        <span class="brand-mark">C</span>
+        <span>Cassava<span class="brand-light">Care</span></span>
+      </a>
+      <div class="topbar-right">
+        <span class="environment">MODEL OPERATIONS</span>
+        <span class="service-status"><span class="status-dot"></span><span id="service-status">Checking API</span></span>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div>
+          <p class="eyebrow">CASSAVA LEAF HEALTH · MLOPS CONSOLE</p>
+          <h1>Field-ready insights<br>for healthier harvests.</h1>
+          <p class="hero-copy">Classify a leaf, explore the model’s evaluation, or improve it with new labelled field images.</p>
+        </div>
+        <div class="hero-plant" aria-hidden="true">
+          <span class="plant-stem"></span><span class="leaf leaf-one"></span>
+          <span class="leaf leaf-two"></span><span class="leaf leaf-three"></span>
+          <span class="leaf leaf-four"></span><span class="leaf leaf-five"></span>
+        </div>
+      </section>
+
+      <section class="status-grid" aria-label="Model status">
+        <article class="status-card">
+          <span class="card-label">API SERVICE</span>
+          <strong id="api-uptime">—</strong>
+          <span class="card-foot">Process uptime</span>
+        </article>
+        <article class="status-card">
+          <span class="card-label">MODEL ARTIFACT</span>
+          <strong id="model-status">Checking</strong>
+          <span class="card-foot">EfficientNetB0 · 5 classes</span>
+        </article>
+        <article class="status-card">
+          <span class="card-label">VALIDATION ACCURACY</span>
+          <strong id="validation-accuracy">—</strong>
+          <span class="card-foot">Held-out model evaluation</span>
+        </article>
+      </section>
+
+      <section class="content-grid">
+        <article class="panel prediction-panel" id="predict">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">01 / PREDICT</p>
+              <h2>Check a leaf</h2>
+            </div>
+            <span class="step-icon">↗</span>
+          </div>
+          <p class="panel-copy">Upload a clear cassava leaf image. The model returns its most likely class and confidence scores.</p>
+          <label class="dropzone" for="prediction-file">
+            <input id="prediction-file" type="file" accept="image/jpeg,image/png,image/webp">
+            <span class="upload-icon">↑</span>
+            <strong id="prediction-file-label">Choose a leaf image</strong>
+            <span>JPEG, PNG or WEBP · max 10 MB</span>
+          </label>
+          <div id="prediction-preview-wrap" class="preview-wrap hidden">
+            <img id="prediction-preview" alt="Selected cassava leaf preview">
+          </div>
+          <button class="button button-primary full-width" id="predict-button" type="button" disabled>Classify leaf <span>→</span></button>
+          <p class="notice" id="prediction-message" role="status"></p>
+          <section class="result-card hidden" id="prediction-result" aria-live="polite">
+            <div class="result-title">
+              <span class="result-check">✓</span>
+              <div><small>MODEL PREDICTION</small><strong id="result-class"></strong></div>
+              <b id="result-confidence"></b>
+            </div>
+            <div class="probability-list" id="probability-list"></div>
+            <p class="disclaimer">Use this result as a screening aid, not a substitute for expert diagnosis.</p>
+          </section>
+        </article>
+
+        <article class="panel insights-panel" id="insights">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">02 / EVALUATION</p>
+              <h2>Know the model</h2>
+            </div>
+            <span class="step-icon">◒</span>
+          </div>
+          <p class="panel-copy" id="dataset-summary">Loading evaluation and dataset summary…</p>
+          <div class="metrics-grid" id="metrics-grid"></div>
+          <div class="chart-heading">
+            <h3>Training images by class</h3>
+            <span id="dataset-total"></span>
+          </div>
+          <div id="class-chart" class="class-chart"></div>
+          <div class="interpretations" id="interpretations"></div>
+        </article>
+      </section>
+
+      <section class="panel retraining-panel" id="retrain">
+        <div class="retraining-intro">
+          <p class="eyebrow">03 / IMPROVE</p>
+          <h2>Teach it from the field.</h2>
+          <p class="panel-copy">Upload new labelled leaf images, then fine-tune the saved EfficientNet model. Your upload is kept on the server for retraining.</p>
+          <div class="retraining-note"><span>!</span><p>Keep one folder per class using the exact class names shown here. Each of the five classes must be represented before training.</p></div>
+        </div>
+        <div class="retraining-controls">
+          <label class="dropzone dataset-dropzone" for="dataset-files">
+            <input id="dataset-files" type="file" accept="image/jpeg,image/png" webkitdirectory directory multiple>
+            <span class="upload-icon">▧</span>
+            <strong id="dataset-file-label">Choose a labelled dataset folder</strong>
+            <span id="dataset-file-hint">Folder structure: class name / image</span>
+          </label>
+          <button class="button button-secondary full-width" id="upload-button" type="button" disabled>Upload labelled images <span>↑</span></button>
+          <button class="button button-primary full-width" id="retrain-button" type="button">Start retraining <span>→</span></button>
+          <div class="training-status" id="training-status" role="status">
+            <span class="status-dot"></span><span id="training-status-text">Ready when you are</span>
+          </div>
+          <div class="training-metrics hidden" id="training-metrics"></div>
+        </div>
+      </section>
+
+      <section class="class-key">
+        <span class="card-label">EXPECTED LABEL FOLDERS</span>
+        <div id="class-key-list"></div>
+      </section>
+    </main>
+
+    <footer>
+      <span>CassavaCare · Cassava Leaf Disease Classification</span>
+      <a href="/docs" target="_blank" rel="noreferrer">API documentation <span>↗</span></a>
+    </footer>
+    <script src="/static/app.js" defer></script>
+  </body>
+</html>
