@@ -2,8 +2,9 @@ services:
   - type: web
     name: cassava-leaf-classifier
     runtime: docker
-    dockerfilePath: ./Cassava_project/Dockerfile
-    dockerContext: ./Cassava_project
+    rootDir: Cassava_project
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
     plan: free
     healthCheckPath: /api/health
     autoDeploy: true
