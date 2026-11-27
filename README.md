@@ -3,7 +3,7 @@
 An end-to-end machine-learning application for classifying cassava leaf images into five classes. It combines an EfficientNetB0 image classifier, a FastAPI service, and a responsive browser dashboard for prediction, model evaluation, and labelled-data retraining.
 
 **Deployment:** [http://13.49.75.124/](http://13.49.75.124/)
-
+**Demo video:** https://youtu.be/m0ZZgRJUqNQ
 
 ## Contents
 
@@ -15,6 +15,7 @@ An end-to-end machine-learning application for classifying cassava leaf images i
 - [Upload data and retrain](#upload-data-and-retrain)
 - [Run with Docker](#run-with-docker)
 - [Deploy to a Linux VM](#deploy-to-a-linux-vm)
+- [Demo script](#demo-script)
 - [Configuration and limitations](#configuration-and-limitations)
 
 ## Features
@@ -241,6 +242,20 @@ The same Compose setup can be used on a Linux VM such as AWS EC2:
 5. Check `http://<server-address>/api/health` and open `http://<server-address>/`.
 
 The Compose service uses one app instance and plain HTTP. For a public deployment, add HTTPS termination, authentication, suitable resource limits, backups, and monitoring. Uploaded training data and model updates are stored in the mounted host directories; back them up if they must survive host or disk loss.
+
+## Demo video
+https://youtu.be/m0ZZgRJUqNQ
+
+Use the following script to demonstrate the deployed application:
+
+1. Open [the deployed application](http://13.49.75.124/) and introduce the Cassava Leaf Disease Classifier dashboard.
+2. Show the dashboard information, including service health, evaluation metrics, and the cassava disease class distribution.
+3. Upload a representative cassava leaf JPEG, PNG, or WEBP image using the prediction form.
+4. Explain the displayed predicted class, confidence score, and probability breakdown. Mention that the result is a screening aid rather than a professional diagnosis.
+5. Open the interactive API documentation at [http://13.49.75.124/docs](http://13.49.75.124/docs).
+6. Demonstrate the prediction and retraining endpoints, and show the health endpoint at [http://13.49.75.124/api/health](http://13.49.75.124/api/health).
+7. Explain the retraining workflow: select a labelled dataset folder, upload files into their class folders, start retraining, and monitor the training status.
+8. Close by summarizing that the application combines inference, evaluation insights, and model retraining through one FastAPI service and dashboard.
 
 ## Configuration and limitations
 
