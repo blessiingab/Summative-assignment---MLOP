@@ -14,6 +14,11 @@
         <span>Cassava<span class="brand-light">Care</span></span>
       </a>
       <div class="topbar-right">
+        <nav class="top-nav" aria-label="Main navigation">
+          <a href="#predict">Classify</a>
+          <a href="#insights">Model insights</a>
+          <a href="#retrain">Improve model</a>
+        </nav>
         <span class="environment">MODEL OPERATIONS</span>
         <span class="service-status"><span class="status-dot"></span><span id="service-status">Checking API</span></span>
       </div>
@@ -25,12 +30,23 @@
           <p class="eyebrow">CASSAVA LEAF HEALTH · MLOPS CONSOLE</p>
           <h1>Field-ready insights<br>for healthier harvests.</h1>
           <p class="hero-copy">Classify a leaf, explore the model’s evaluation, or improve it with new labelled field images.</p>
+          <div class="hero-actions">
+            <a class="hero-button" href="#predict">Classify a leaf <span>→</span></a>
+            <a class="hero-link" href="#insights">Explore model insights</a>
+          </div>
         </div>
         <div class="hero-plant" aria-hidden="true">
           <span class="plant-stem"></span><span class="leaf leaf-one"></span>
           <span class="leaf leaf-two"></span><span class="leaf leaf-three"></span>
           <span class="leaf leaf-four"></span><span class="leaf leaf-five"></span>
         </div>
+        <aside class="hero-insight" aria-label="Model snapshot">
+          <span class="snapshot-label">MODEL SNAPSHOT</span>
+          <strong>05</strong>
+          <span class="snapshot-caption">cassava leaf classes</span>
+          <span class="snapshot-divider"></span>
+          <span class="snapshot-model"><span class="snapshot-dot"></span>EfficientNetB0</span>
+        </aside>
       </section>
 
       <section class="status-grid" aria-label="Model status">

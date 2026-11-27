@@ -8,6 +8,7 @@ const classNames = [
 ];
 let selectedPrediction = null;
 let selectedDataset = [];
+let trainingPollTimer = null;
 
 function formatDuration(seconds) {
   const total = Math.floor(seconds || 0);
@@ -232,7 +233,14 @@ async function refreshTrainingStatus() {
   if (state.status === "running") {
     text.textContent = "Fine-tuning model… this can take a few minutes.";
     $("#retrain-button").disabled = true;
+    if (trainingPollTimer === null) {
+      trainingPollTimer = setInterval(() => refreshTrainingStatus().catch(() => {}), 10000);
+    }
   } else {
+    if (trainingPollTimer !== null) {
+      clearInterval(trainingPollTimer);
+      trainingPollTimer = null;
+    }
     $("#retrain-button").disabled = false;
     if (state.status === "completed") {
       text.textContent = `Retraining complete · ${new Date(state.finished_at).toLocaleTimeString()}`;
@@ -271,5 +279,3 @@ $("#retrain-button").addEventListener("click", async () => {
 loadInsights();
 refreshHealth();
 refreshTrainingStatus().catch(() => {});
-setInterval(refreshHealth, 30000);
-setInterval(() => refreshTrainingStatus().catch(() => {}), 3000);
